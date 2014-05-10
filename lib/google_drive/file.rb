@@ -154,6 +154,19 @@ module GoogleDrive
           io.write(body)
         end
         
+        # You can write the file of the string by:
+        # File.open(filename, 'wb') do |f|
+        #   f.write exported_string
+        # end
+        
+        def export_file_to_string(format = 'pdf')
+            url = human_url
+            url = url.split('/edit')[0]
+            id = url.split('/d/')[1]
+            url = url + "/export/#{format}?id=#{id}"
+            return @session.request(:get, url, :response_type => :raw)
+        end
+        
         # Updates the file with the content of the local file.
         #
         # e.g.
