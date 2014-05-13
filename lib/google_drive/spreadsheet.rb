@@ -127,8 +127,10 @@ module GoogleDrive
         def export_as_string(format, worksheet_index = nil)
           gid_param = worksheet_index ? "&gid=#{worksheet_index}" : ""
           format_string = "&format=#{format}"
+          id_string = "&id=#{key}"
+
           if human_url.match('edit')
-            url = human_url.gsub('edit', 'export') + gid_param + format_string
+            url = human_url.gsub('edit', 'export') + gid_param + format_string + id_string
           else
             url =
               "https://spreadsheets.google.com/feeds/download/spreadsheets/Export" +
