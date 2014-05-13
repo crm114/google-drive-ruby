@@ -130,7 +130,7 @@ module GoogleDrive
           id_string = "&id=#{key}"
 
           if human_url.match('edit')
-            url = human_url.gsub('edit', 'export') + gid_param + format_string + id_string
+            url = human_url.gsub('edit', 'export') + format_string + id_string
           else
             url =
               "https://spreadsheets.google.com/feeds/download/spreadsheets/Export" +
