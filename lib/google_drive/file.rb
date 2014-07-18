@@ -154,19 +154,6 @@ module GoogleDrive
           io.write(body)
         end
         
-        # You can write the file of the string by:
-        # File.open(filename, 'wb') do |f|
-        #   f.write exported_string
-        # end
-        
-        def export_file_to_string(format = 'pdf')
-            url = human_url
-            url = url.split('/edit')[0]
-            id = url.split('/d/')[1]
-            url = url + "/export/#{format}?id=#{id}"
-            return @session.request(:get, url, :response_type => :raw)
-        end
-        
         # Updates the file with the content of the local file.
         #
         # e.g.
@@ -189,8 +176,7 @@ module GoogleDrive
         # Reads content from +io+ and updates the file with the content.
         def update_from_io(io, params = {})
           params = {:header => {"If-Match" => "*"}}.merge(params)
-          initial_url = self.document_feed_entry.css(
-              "link[rel='http://schemas.google.com/g/2005#resumable-edit-media']")[0]["href"]
+          initial_url = self.document_feed_entry.css("link[rel='edit-media']")[0]['href']
           @document_feed_entry = @session.upload_raw(
               :put, initial_url, io, self.title, params)
         end
