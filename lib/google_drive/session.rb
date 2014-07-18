@@ -340,9 +340,9 @@ module GoogleDrive
           return entry_element_to_file(entry)
         end
 
-        def upload_raw(method, url, io, title = "Untitled", params = {conversion: true}) #:nodoc:
+        def upload_raw(method, url, io, title = "Untitled", params = {) #:nodoc:
           
-          params = {:convert => true}.merge(params) if params[:conversion]
+          params = {:convert => true}.merge(params)
           pos = io.pos
           io.seek(0, IO::SEEK_END)
           total_bytes = io.pos - pos
@@ -367,7 +367,7 @@ module GoogleDrive
               "X-Upload-Content-Type" => content_type,
               "X-Upload-Content-Length" => total_bytes.to_s(),
           }
-          initial_full_url = concat_url(url, params[:convert] ? "?convert=true" : "?convert=false") if params[:conversion]
+          initial_full_url = concat_url(url, params[:convert] ? "?convert=true" : "?convert=false")
           initial_response = request(method, initial_full_url,
               :header => default_initial_header.merge(params[:header] || {}),
               :data => initial_xml,
