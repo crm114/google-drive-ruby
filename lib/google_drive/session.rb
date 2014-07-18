@@ -340,9 +340,9 @@ module GoogleDrive
           return entry_element_to_file(entry)
         end
 
-        def upload_raw(method, url, io, title = "Untitled", params = {}) #:nodoc:
+        def upload_raw(method, url, io, title = "Untitled", params = {conversion: true}) #:nodoc:
           
-          params = {:convert => true}.merge(params)
+          params = {:convert => true}.merge(params) if params[:conversion]
           pos = io.pos
           io.seek(0, IO::SEEK_END)
           total_bytes = io.pos - pos
